@@ -41,9 +41,16 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = Category::find($id);
+        if ($category == null) {
+            return response(['error' => 'Category Not Found!'], 404);
+        }
+        return response([
+            'message' => 'Category was founded successfully!',
+            'category' => $category
+        ], 200);
     }
 
     /**
@@ -73,7 +80,7 @@ class CategoryController extends Controller
         }
 
         return response([
-            'message' => 'Category record is deleted successfully!',
+            'message' => 'Category was deleted successfully!',
             'category' => $category
         ], 200);
     }
