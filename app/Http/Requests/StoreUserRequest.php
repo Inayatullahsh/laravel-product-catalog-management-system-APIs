@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreCategoryRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +22,9 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string',  Rule::unique('categories', 'name')]
+            'name' => ['required', 'string'],
+            'email' => ['required', 'email'], // A Uniqueness rule is already applied to the table's schema.
+            'password' => ['required', 'string', 'confirmed']
         ];
     }
 }

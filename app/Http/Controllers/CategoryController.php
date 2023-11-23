@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Exception;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class CategoryController extends Controller
 {
@@ -29,7 +32,10 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $category = Category::create($validated);
+
+        return $category;
     }
 
     /**
@@ -59,8 +65,16 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if ($category == null) {
+            return response(['error' => 'Category Not Found!'], 404);
+        }
+
+        return response([
+            'message' => 'Category record is deleted successfully!',
+            'category' => $category
+        ], 200);
     }
 }
