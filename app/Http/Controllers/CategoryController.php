@@ -64,9 +64,17 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        //
+        $category = Category::find($id);
+        if ($category == null) {
+            return response(['error' => 'Category Not Found!'], 404);
+        }
+
+        $validated = $request->validated();
+        $category->update($validated);
+
+        return response(['message' => 'Category updated Successfully!', 'category' => $category, 'request' => $request]);
     }
 
     /**

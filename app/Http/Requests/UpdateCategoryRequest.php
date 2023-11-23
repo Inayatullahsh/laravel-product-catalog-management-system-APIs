@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCategoryRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,9 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        // FIXME: uniqueness error should return in JSON format.
         return [
-            //
+            'name' => ['required', 'string', Rule::unique('categories', 'name')->ignore($this->route('id'))]
         ];
     }
 }

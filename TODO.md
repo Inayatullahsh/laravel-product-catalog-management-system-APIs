@@ -15,8 +15,8 @@
 
 1. [x] Create `categories` table with a model a resource a StoreRequest an UpdateRequest and a controller.
 2. [x] Add *Create* functionality for `categories` table.
-3. [ ] Add *Read* functionality for `categories` table.
-4. [ ] Add *Update* functionality for `categories` table.
+3. [x] Add *Read* functionality for `categories` table.
+4. [x] Add *Update* functionality for `categories` table.
 5. [x] Add *delete* functionality for `categories` table.
 
 ### Supplier Section
